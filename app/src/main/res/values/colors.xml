@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="primary">#3476c8</color>
+    <color name="primarySecond">#3476c8</color>
+    <color name="primaryDark">#073a79</color>
+    <color name="light_pink">#f9ebf1</color>
+    <color name="c_B2B2B2">#B2B2B2</color>
+    <color name="trans">#00000000</color>
+    <color name="gray_light_">#999999</color>
+    <color name="green_light">#E7F4E8</color>
+    <color name="green_genaral">#048732</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="accent">#3476c8</color>
+    <color name="button_ripple_color">#073a79</color>
+    <color name="user_change_btn">#BEC4C4</color>
+    <color name="white_transparent">#FFFFFFFF</color>
+    <color name="bg_msg_you">#f1f7ff</color>
+    <color name="red">#EC1D27</color>
+    <color name="gray">#e2e2e2</color>
+    <color name="gray_stroke">#ccc</color>
+    <color name="transparent">#00000000</color>
+    <color name="gold">#FFD600</color>
+    <color name="web_orange">#FFAB00</color>
+    <color name="blaze_orange">#FF6D00</color>
+    <color name="line_color">#dbe0e7</color>
+
+
+
+
+
+</resources>
