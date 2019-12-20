@@ -10,16 +10,6 @@ public class DataModel {
 
     private Boolean isLoggedIn;
 
-    private List<CategoryModel> CountryList;
-
-    public List<CategoryModel> getCountryList() {
-        return CountryList;
-    }
-
-    public void setCountryList(List<CategoryModel> countryList) {
-        CountryList = countryList;
-    }
-
     public Boolean getLoggedIn() {
         return isLoggedIn;
     }

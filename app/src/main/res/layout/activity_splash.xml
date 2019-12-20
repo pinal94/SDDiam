@@ -16,7 +16,7 @@
         android:orientation="vertical"
         app:srcCompat="@drawable/ic_logo" />
 
-    <com.oozeetech.sddiam.widget.DTextView
+    <com.oozeetech.sddiam.Widget.DTextView
         android:id="@+id/splashMsg"
         style="@style/txt_white_14"
         android:layout_width="match_parent"

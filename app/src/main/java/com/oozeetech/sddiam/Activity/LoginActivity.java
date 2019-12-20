@@ -11,18 +11,17 @@ import com.oozeetech.sddiam.Model.ResponseModel;
 import com.oozeetech.sddiam.R;
 import com.oozeetech.sddiam.Service.LoginService;
 import com.oozeetech.sddiam.Utils.SDInterface;
-import com.oozeetech.sddiam.widget.DEditText;
-import com.oozeetech.sddiam.widget.DTextView;
-import com.oozeetech.sddiam.widget.MaterialButton;
+import com.oozeetech.sddiam.Widget.DEditText;
+import com.oozeetech.sddiam.Widget.DTextView;
+import com.oozeetech.sddiam.Widget.MaterialButton;
 
 import java.util.ArrayList;
 
 public class LoginActivity extends BaseActivity {
-    private DEditText editLoginEmail;
-    private DEditText editLoginPass;
-    private DTextView tvForgotPass;
+    private DEditText edtEmail,edtPassword;
+    private DTextView txtForgotPass;
     private MaterialButton btnLogin;
-    private DTextView tvCreateAccount;
+    private DTextView txtCreateAccount;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +40,7 @@ public class LoginActivity extends BaseActivity {
             }
         });
 
-        tvCreateAccount.setOnClickListener(new View.OnClickListener() {
+        txtCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SignupActivity.class);
@@ -49,7 +48,7 @@ public class LoginActivity extends BaseActivity {
             }
         });
 
-        tvForgotPass.setOnClickListener(new View.OnClickListener() {
+        txtForgotPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ForgetPasswordActivity.class);
@@ -62,9 +61,9 @@ public class LoginActivity extends BaseActivity {
     private void loginService() {
         if (checkInternet()) {
             RequestModel requestModel = new RequestModel();
-            requestModel.setAPIDomain("http://192.168.1.135/");
-            requestModel.setUsername(editLoginEmail.getText().toString());
-            requestModel.setPassword(editLoginPass.getText().toString());
+            requestModel.setAPIDomain(sdApplication.apiDomainName);
+            requestModel.setUsername(edtEmail.getText().toString());
+            requestModel.setPassword(edtPassword.getText().toString());
             new LoginService(LoginActivity.this, requestModel, new SDInterface.OnGetLoginData() {
                 @Override
                 public void onGetLoginData(ArrayList<ResponseModel> responseModel) {
@@ -74,7 +73,7 @@ public class LoginActivity extends BaseActivity {
                         startActivity(intent);
                         finishAffinity();
                     }else {
-                        Toast.makeText(LoginActivity.this, responseModel.get(0).getStatusMsg(), Toast.LENGTH_SHORT).show();
+                        showToast(responseModel.get(0).getStatusMsg(), Toast.LENGTH_SHORT);
                     }
 
                 }
@@ -86,21 +85,21 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void initView() {
-        editLoginEmail = findViewById(R.id.editLoginEmail);
-        editLoginPass = findViewById(R.id.editLoginPass);
-        tvForgotPass = findViewById(R.id.tvForgotPass);
+        edtEmail = findViewById(R.id.edtEmail);
+        edtPassword = findViewById(R.id.edtPassword);
+        txtForgotPass = findViewById(R.id.txtForgotPass);
         btnLogin = findViewById(R.id.btnLogin);
-        tvCreateAccount = findViewById(R.id.tvCreateAccount);
+        txtCreateAccount = findViewById(R.id.txtCreateAccount);
 
     }
 
     private boolean validate() {
-        if (editLoginEmail.getText().toString().trim().length() <= 0) {
+        if (edtEmail.getText().toString().trim().length() <= 0) {
             showToast(getString(R.string.err_email), Toast.LENGTH_SHORT);
             return false;
         }
 
-        if (editLoginPass.getText().toString().trim().length() <= 0) {
+        if (edtPassword.getText().toString().trim().length() <= 0) {
             showToast(getString(R.string.err_password), Toast.LENGTH_SHORT);
             return false;
         }

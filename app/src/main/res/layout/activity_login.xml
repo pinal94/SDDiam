@@ -74,8 +74,8 @@
                         </RelativeLayout>
 
 
-                        <com.oozeetech.sddiam.widget.DEditText
-                            android:id="@+id/editLoginEmail"
+                        <com.oozeetech.sddiam.Widget.DEditText
+                            android:id="@+id/edtEmail"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
                             android:background="@null"
@@ -122,8 +122,8 @@
                         </RelativeLayout>
 
 
-                        <com.oozeetech.sddiam.widget.DEditText
-                            android:id="@+id/editLoginPass"
+                        <com.oozeetech.sddiam.Widget.DEditText
+                            android:id="@+id/edtPassword"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
                             android:background="@null"
@@ -145,8 +145,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="right">
 
-                        <com.oozeetech.sddiam.widget.DTextView
-                            android:id="@+id/tvForgotPass"
+                        <com.oozeetech.sddiam.Widget.DTextView
+                            android:id="@+id/txtForgotPass"
                             style="@style/txt_black_14"
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/_35sdp"
@@ -158,7 +158,7 @@
 
                     </LinearLayout>
 
-                    <com.oozeetech.sddiam.widget.MaterialButton
+                    <com.oozeetech.sddiam.Widget.MaterialButton
                         android:id="@+id/btnLogin"
                         style="@style/LightFlatWaveColorButtonRippleStyle_"
                         android:layout_width="match_parent"
@@ -178,7 +178,7 @@
                         android:gravity="center"
                         android:orientation="horizontal">
 
-                        <com.oozeetech.sddiam.widget.DTextView
+                        <com.oozeetech.sddiam.Widget.DTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="right"
@@ -188,8 +188,8 @@
                             android:textSize="@dimen/_12sdp"
                             app:textFontFace="REGULAR" />
 
-                        <com.oozeetech.sddiam.widget.DTextView
-                            android:id="@+id/tvCreateAccount"
+                        <com.oozeetech.sddiam.Widget.DTextView
+                            android:id="@+id/txtCreateAccount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_5sdp"

@@ -19,28 +19,26 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
 import com.hbb20.CountryCodePicker;
 import com.oozeetech.sddiam.Adapter.CountryListFilterAdapter;
-import com.oozeetech.sddiam.Model.CategoryModel;
+import com.oozeetech.sddiam.Model.RequestModel;
+import com.oozeetech.sddiam.Model.ResponseModel;
 import com.oozeetech.sddiam.R;
+import com.oozeetech.sddiam.Service.CountryListService;
+import com.oozeetech.sddiam.Service.RegisterService;
 import com.oozeetech.sddiam.Utils.SDInterface;
-import com.oozeetech.sddiam.widget.DEditText;
-import com.oozeetech.sddiam.widget.DTextView;
-import com.oozeetech.sddiam.widget.MaterialButton;
+import com.oozeetech.sddiam.Widget.DEditText;
+import com.oozeetech.sddiam.Widget.DTextView;
+import com.oozeetech.sddiam.Widget.MaterialButton;
 
 import java.util.ArrayList;
 
 public class SignupActivity extends BaseActivity {
-    private DEditText editRegFirstName;
-    private DEditText editRegCompanyName;
-    private DEditText editRegEmail;
-    private DEditText editPassword;
-    private CountryCodePicker spRegCountryCode;
-    private DEditText editRegContactNo;
-    private DTextView editCountry;
-    private DTextView editCity;
-    private MaterialButton btnSignup;
-    private DTextView tvCreateAccount;
-    private ArrayList<CategoryModel> arrCountryList;
-    private ArrayList<CategoryModel> arrCountryFilterList;
+    private DEditText edtFirstName, edtCompanyName, edtEmail, edtPassword, edtContactNo;
+    private CountryCodePicker spCountryCode;
+    private DTextView edtCountry, edtCity, txtCreateAccount;
+    private MaterialButton btnSignUp;
+    private ArrayList<ResponseModel> arrCountryList, arrCountryFilterList;
+    private RequestModel requestModel;
+    private String strCountryId = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,17 +47,16 @@ public class SignupActivity extends BaseActivity {
         getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_login));
         initView();
 
-        arrCountryList = new ArrayList<>();
-        arrCountryFilterList = new ArrayList<>();
+        requestModel = new RequestModel();
 
-        tvCreateAccount.setOnClickListener(new View.OnClickListener() {
+        txtCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
 
-        btnSignup.setOnClickListener(new View.OnClickListener() {
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (validate()) {
@@ -68,7 +65,7 @@ public class SignupActivity extends BaseActivity {
             }
         });
 
-        editCountry.setOnClickListener(new View.OnClickListener() {
+        edtCountry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (arrCountryList.size() != 0) {
@@ -76,61 +73,95 @@ public class SignupActivity extends BaseActivity {
                 }
             }
         });
+
+        if (checkInternet()) {
+            new CountryListService(SignupActivity.this, requestModel, new SDInterface.OnGetCountryListData() {
+                @Override
+                public void onGetCountryListData(ArrayList<ResponseModel> responseModel) {
+                    arrCountryList = new ArrayList<>();
+                    arrCountryFilterList = new ArrayList<>();
+                    arrCountryList.addAll(responseModel);
+                    arrCountryFilterList.addAll(responseModel);
+                }
+            });
+        } else {
+            showNoInternetDialog();
+        }
     }
 
     private void signUPService() {
         if (checkInternet()) {
-            finish();
+            requestModel = new RequestModel();
+            requestModel.setDomainName(sdApplication.apiDomainName);
+            requestModel.setFull_Name(edtFirstName.getText().toString());
+            requestModel.setCompany_Name(edtCompanyName.getText().toString());
+            requestModel.setLogin_Name(edtEmail.getText().toString());
+            requestModel.setLogin_Pass(edtPassword.getText().toString());
+            requestModel.setLogin_Pass_Confirm(edtPassword.getText().toString());
+            requestModel.setContact_No(edtContactNo.getText().toString());
+            requestModel.setCountry_ID(strCountryId);
+            requestModel.setCity_ID("0");
+            new RegisterService(SignupActivity.this, requestModel, new SDInterface.OnGetRegisterData() {
+                @Override
+                public void onGetRegisterData(ArrayList<ResponseModel> responseModel) {
+                    showToast(responseModel.get(0).getStatusMsg(), Toast.LENGTH_SHORT);
+                    if (responseModel.get(0).getApiStatus().equalsIgnoreCase("1")) {
+                        finish();
+                    }
+                }
+            });
         } else {
             showNoInternetDialog();
         }
     }
 
     private boolean validate() {
-        if (editRegFirstName.getText().toString().trim().length() <= 0) {
+        if (edtFirstName.getText().toString().trim().length() <= 0) {
             showToast(getString(R.string.err_firstname), Toast.LENGTH_SHORT);
             return false;
         }
 
-        if (editRegCompanyName.getText().toString().trim().length() <= 0) {
+        if (edtCompanyName.getText().toString().trim().length() <= 0) {
             showToast(getString(R.string.err_company_name), Toast.LENGTH_SHORT);
             return false;
         }
 
-        if (editRegContactNo.getText().toString().trim().length() <= 0) {
-            showToast(getString(R.string.err_contact_no), Toast.LENGTH_SHORT);
-            return false;
-        }
-        if (editRegEmail.getText().toString().trim().length() <= 0) {
+        if (edtEmail.getText().toString().trim().length() <= 0) {
             showToast(getString(R.string.err_email), Toast.LENGTH_SHORT);
             return false;
         }
-
-        if (!Patterns.EMAIL_ADDRESS.matcher(editRegEmail.getText()).matches()) {
+        if (!Patterns.EMAIL_ADDRESS.matcher(edtEmail.getText()).matches()) {
             showToast(getString(R.string.err_email_invalid), Toast.LENGTH_SHORT);
             return false;
         }
 
-        if (editCountry.getText().toString().trim().length() <= 0) {
-            showToast(getString(R.string.err_country), Toast.LENGTH_SHORT);
-            return false;
-        }
-
-        if (editCity.getText().toString().trim().length() <= 0) {
-            showToast(getString(R.string.err_city), Toast.LENGTH_SHORT);
-            return false;
-        }
-
-        if (editPassword.getText().toString().trim().length() <= 0) {
+        if (edtPassword.getText().toString().trim().length() <= 0) {
             showToast(getString(R.string.err_password), Toast.LENGTH_SHORT);
             return false;
         }
 
-        if (editRegContactNo.getText().length() > 0) {
+
+        if (edtCountry.getText().toString().trim().length() <= 0 || edtCountry.getText().toString().equalsIgnoreCase("Select Country")) {
+            showToast(getString(R.string.err_country), Toast.LENGTH_SHORT);
+            return false;
+        }
+
+       /* if (edtCity.getText().toString().trim().length() <= 0) {
+            showToast(getString(R.string.err_city), Toast.LENGTH_SHORT);
+            return false;
+        }*/
+
+
+        if (edtContactNo.getText().toString().trim().length() <= 0) {
+            showToast(getString(R.string.err_contact_no), Toast.LENGTH_SHORT);
+            return false;
+        }
+
+        if (edtContactNo.getText().length() > 0) {
             PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
             Phonenumber.PhoneNumber number = null;
             try {
-                number = phoneUtil.parse(spRegCountryCode.getSelectedCountryCodeWithPlus() + editRegContactNo.getText().toString(), spRegCountryCode.getSelectedCountryNameCode());
+                number = phoneUtil.parse(spCountryCode.getSelectedCountryCodeWithPlus() + edtContactNo.getText().toString(), spCountryCode.getSelectedCountryNameCode());
             } catch (NumberParseException e) {
                 e.printStackTrace();
             }
@@ -145,16 +176,16 @@ public class SignupActivity extends BaseActivity {
     }
 
     private void initView() {
-        editRegFirstName = findViewById(R.id.editRegFirstName);
-        editRegCompanyName = findViewById(R.id.editRegCompanyName);
-        editRegEmail = findViewById(R.id.editRegEmail);
-        editPassword = findViewById(R.id.editPassword);
-        spRegCountryCode = findViewById(R.id.spRegCountryCode);
-        editRegContactNo = findViewById(R.id.editRegContactNo);
-        editCountry = findViewById(R.id.editCountry);
-        editCity = findViewById(R.id.editCity);
-        btnSignup = findViewById(R.id.btnSignup);
-        tvCreateAccount = findViewById(R.id.tvCreateAccount);
+        edtFirstName = findViewById(R.id.edtFirstName);
+        edtCompanyName = findViewById(R.id.edtCompanyName);
+        edtEmail = findViewById(R.id.edtEmail);
+        edtPassword = findViewById(R.id.edtPassword);
+        spCountryCode = findViewById(R.id.spCountryCode);
+        edtContactNo = findViewById(R.id.edtContactNo);
+        edtCountry = findViewById(R.id.edtCountry);
+        edtCity = findViewById(R.id.edtCity);
+        btnSignUp = findViewById(R.id.btnSignUp);
+        txtCreateAccount = findViewById(R.id.txtCreateAccount);
     }
 
     public void countryStateSelection() {
@@ -175,8 +206,9 @@ public class SignupActivity extends BaseActivity {
         final CountryListFilterAdapter categoriesAdapter = new CountryListFilterAdapter(getActivity(), arrCountryList,
                 arrCountryFilterList, new SDInterface.OnCountryClick() {
             @Override
-            public void onCountryClick(String selectedRawItem) {
-                editCountry.setText(selectedRawItem);
+            public void onCountryClick(String selectedRawItem, String selectedRawItemID) {
+                edtCountry.setText(selectedRawItem);
+                strCountryId = selectedRawItemID;
                 dialog.dismiss();
             }
         });

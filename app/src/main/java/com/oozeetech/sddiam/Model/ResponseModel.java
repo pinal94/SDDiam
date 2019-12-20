@@ -1,7 +1,7 @@
 package com.oozeetech.sddiam.Model;
 
 public class ResponseModel {
-    private String returnCode,ApiStatus,StatusMsg,SuccessResult,returnMsg,returnValue;
+    private String returnCode,ApiStatus,StatusMsg,SuccessResult,returnMsg,returnValue,Disabled,Group,Selected,Text,Value;
     private DataModel data;
 
     public String getReturnCode() {
@@ -58,5 +58,45 @@ public class ResponseModel {
 
     public void setData(DataModel data) {
         this.data = data;
+    }
+
+    public String getDisabled() {
+        return Disabled;
+    }
+
+    public void setDisabled(String disabled) {
+        Disabled = disabled;
+    }
+
+    public String getGroup() {
+        return Group;
+    }
+
+    public void setGroup(String group) {
+        Group = group;
+    }
+
+    public String getSelected() {
+        return Selected;
+    }
+
+    public void setSelected(String selected) {
+        Selected = selected;
+    }
+
+    public String getText() {
+        return Text;
+    }
+
+    public void setText(String text) {
+        Text = text;
+    }
+
+    public String getValue() {
+        return Value;
+    }
+
+    public void setValue(String value) {
+        Value = value;
     }
 }

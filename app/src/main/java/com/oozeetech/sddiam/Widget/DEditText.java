@@ -1,4 +1,4 @@
-package com.oozeetech.sddiam.widget;
+package com.oozeetech.sddiam.Widget;
 
 import android.content.Context;import android.util.AttributeSet;
 

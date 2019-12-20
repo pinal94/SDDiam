@@ -10,10 +10,10 @@ import android.widget.LinearLayout;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.oozeetech.sddiam.Model.CategoryModel;
+import com.oozeetech.sddiam.Model.ResponseModel;
 import com.oozeetech.sddiam.R;
 import com.oozeetech.sddiam.Utils.SDInterface;
-import com.oozeetech.sddiam.widget.DTextView;
+import com.oozeetech.sddiam.Widget.DTextView;
 
 import java.util.ArrayList;
 
@@ -21,11 +21,11 @@ import java.util.ArrayList;
 public class CountryListFilterAdapter extends RecyclerView.Adapter<CountryListFilterAdapter.Holder> implements Filterable {
     private ValueFilter valueFilter;
     private Activity activity;
-    private ArrayList<CategoryModel> arrCountryList;
-    private ArrayList<CategoryModel> arrCountryFilterList;
+    private ArrayList<ResponseModel> arrCountryList;
+    private ArrayList<ResponseModel> arrCountryFilterList;
     private SDInterface.OnCountryClick onCountryClick;
 
-    public CountryListFilterAdapter(Activity activity, ArrayList<CategoryModel> arrCountryList, ArrayList<CategoryModel> arrCountryFilterList, SDInterface.OnCountryClick onCountryClick) {
+    public CountryListFilterAdapter(Activity activity, ArrayList<ResponseModel> arrCountryList, ArrayList<ResponseModel> arrCountryFilterList, SDInterface.OnCountryClick onCountryClick) {
         this.activity = activity;
         this.arrCountryList = arrCountryList;
         this.arrCountryFilterList = arrCountryFilterList;
@@ -43,12 +43,12 @@ public class CountryListFilterAdapter extends RecyclerView.Adapter<CountryListFi
     @Override
     public void onBindViewHolder(final Holder holder, final int position) {
 
-        final CategoryModel categoryModel = arrCountryList.get(position);
-        holder.txtName.setText(categoryModel.getName());
+        final ResponseModel responseModel = arrCountryList.get(position);
+        holder.txtName.setText(responseModel.getText());
         holder.loutMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onCountryClick.onCountryClick(categoryModel.getName());
+                onCountryClick.onCountryClick(responseModel.getText(),responseModel.getValue());
             }
         });
     }
@@ -92,12 +92,12 @@ public class CountryListFilterAdapter extends RecyclerView.Adapter<CountryListFi
 
             if (constraint != null && constraint.length() > 0) {
 
-                ArrayList<CategoryModel> filterList = new ArrayList<>();
+                ArrayList<ResponseModel> filterList = new ArrayList<>();
 
-                for (int i = 0; i < arrCountryList.size(); i++) {
-                    if ((arrCountryList.get(i).getName().toUpperCase())
+                for (int i = 0; i < arrCountryFilterList.size(); i++) {
+                    if ((arrCountryFilterList.get(i).getText().toUpperCase())
                             .contains(constraint.toString().toUpperCase())) {
-                        CategoryModel data = arrCountryList.get(i);
+                        ResponseModel data = arrCountryFilterList.get(i);
                         filterList.add(data);
                     }
                 }
@@ -106,8 +106,8 @@ public class CountryListFilterAdapter extends RecyclerView.Adapter<CountryListFi
                 results.values = filterList;
 
             } else {
-                results.count = arrCountryList.size();
-                results.values = arrCountryList;
+                results.count = arrCountryFilterList.size();
+                results.values = arrCountryFilterList;
             }
 
             return results;
@@ -117,7 +117,7 @@ public class CountryListFilterAdapter extends RecyclerView.Adapter<CountryListFi
         protected void publishResults(CharSequence constraint,
                                       FilterResults results) {
 
-            arrCountryFilterList = (ArrayList<CategoryModel>) results.values;
+            arrCountryList = (ArrayList<ResponseModel>) results.values;
 
 
             notifyDataSetChanged();

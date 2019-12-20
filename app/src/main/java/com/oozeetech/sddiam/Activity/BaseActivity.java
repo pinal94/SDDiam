@@ -16,7 +16,6 @@ import androidx.appcompat.app.AppCompatDelegate;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.oozeetech.sddiam.R;
-import com.oozeetech.sddiam.Utils.AsyncProgressDialog;
 import com.oozeetech.sddiam.Utils.Connectivity;
 
 public class BaseActivity extends AppCompatActivity {
@@ -25,9 +24,8 @@ public class BaseActivity extends AppCompatActivity {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
 
-    AsyncProgressDialog ad;
-    Toast toast;
     public SDApplication sdApplication;
+    Toast toast;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,7 +34,6 @@ public class BaseActivity extends AppCompatActivity {
         toast = Toast.makeText(getActivity(), "", Toast.LENGTH_LONG);
         sdApplication = (SDApplication) getApplication();
         sdApplication.getLoginSession(getActivity());
-
     }
 
     public void hideKeyboard() {
@@ -88,36 +85,6 @@ public class BaseActivity extends AppCompatActivity {
         return this;
     }
 
-    public void showDialog() {
-        try {
-            if (ad != null && ad.isShowing()) {
-                return;
-            }
-
-            ad = AsyncProgressDialog.getInstant(getActivity());
-            ad.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void setMessage(String msg) {
-        try {
-            ad.setMessage(msg);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void dismissDialog() {
-        try {
-            if (ad != null) {
-                ad.dismiss();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

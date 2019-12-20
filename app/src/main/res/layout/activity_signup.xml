@@ -79,8 +79,8 @@
                         </RelativeLayout>
 
 
-                        <com.oozeetech.sddiam.widget.DEditText
-                            android:id="@+id/editRegFirstName"
+                        <com.oozeetech.sddiam.Widget.DEditText
+                            android:id="@+id/edtFirstName"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
                             android:background="@null"
@@ -126,8 +126,8 @@
                         </RelativeLayout>
 
 
-                        <com.oozeetech.sddiam.widget.DEditText
-                            android:id="@+id/editRegCompanyName"
+                        <com.oozeetech.sddiam.Widget.DEditText
+                            android:id="@+id/edtCompanyName"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
                             android:background="@null"
@@ -173,8 +173,8 @@
                         </RelativeLayout>
 
 
-                        <com.oozeetech.sddiam.widget.DEditText
-                            android:id="@+id/editRegEmail"
+                        <com.oozeetech.sddiam.Widget.DEditText
+                            android:id="@+id/edtEmail"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
                             android:background="@null"
@@ -222,8 +222,8 @@
                         </RelativeLayout>
 
 
-                        <com.oozeetech.sddiam.widget.DEditText
-                            android:id="@+id/editPassword"
+                        <com.oozeetech.sddiam.Widget.DEditText
+                            android:id="@+id/edtPassword"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
                             android:background="@null"
@@ -270,7 +270,7 @@
                         </RelativeLayout>
 
                         <com.hbb20.CountryCodePicker
-                            android:id="@+id/spRegCountryCode"
+                            android:id="@+id/spCountryCode"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center"
@@ -278,8 +278,8 @@
                             app:defaultCode="91"
                             app:textSize="16sp" />
 
-                        <com.oozeetech.sddiam.widget.DEditText
-                            android:id="@+id/editRegContactNo"
+                        <com.oozeetech.sddiam.Widget.DEditText
+                            android:id="@+id/edtContactNo"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
                             android:background="@null"
@@ -327,8 +327,8 @@
                         </RelativeLayout>
 
 
-                        <com.oozeetech.sddiam.widget.DTextView
-                            android:id="@+id/editCountry"
+                        <com.oozeetech.sddiam.Widget.DTextView
+                            android:id="@+id/edtCountry"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
                             android:layout_marginRight="@dimen/_7sdp"
@@ -353,6 +353,7 @@
                         android:layout_height="@dimen/_10sdp" />
 
                     <LinearLayout
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_textview_boader"
@@ -379,8 +380,8 @@
                         </RelativeLayout>
 
 
-                        <com.oozeetech.sddiam.widget.DTextView
-                            android:id="@+id/editCity"
+                        <com.oozeetech.sddiam.Widget.DTextView
+                            android:id="@+id/edtCity"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
                             android:layout_marginRight="@dimen/_7sdp"
@@ -398,14 +399,13 @@
 
                     </LinearLayout>
 
-
                 </LinearLayout>
 
             </FrameLayout>
         </LinearLayout>
 
-        <com.oozeetech.sddiam.widget.MaterialButton
-            android:id="@+id/btnSignup"
+        <com.oozeetech.sddiam.Widget.MaterialButton
+            android:id="@+id/btnSignUp"
             style="@style/LightFlatWaveColorButtonRippleStyle_"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_35sdp"
@@ -427,7 +427,7 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <com.oozeetech.sddiam.widget.DTextView
+            <com.oozeetech.sddiam.Widget.DTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
@@ -436,8 +436,8 @@
                 android:textSize="@dimen/_12sdp"
                 app:textFontFace="REGULAR" />
 
-            <com.oozeetech.sddiam.widget.DTextView
-                android:id="@+id/tvCreateAccount"
+            <com.oozeetech.sddiam.Widget.DTextView
+                android:id="@+id/txtCreateAccount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_5sdp"

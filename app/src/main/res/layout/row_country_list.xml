@@ -23,7 +23,7 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <com.oozeetech.sddiam.widget.DTextView
+            <com.oozeetech.sddiam.Widget.DTextView
                 android:id="@+id/txtName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

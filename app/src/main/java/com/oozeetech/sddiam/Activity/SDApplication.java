@@ -10,6 +10,7 @@ import com.oozeetech.sddiam.Model.ResponseModel;
 public class SDApplication extends Application {
     public boolean isLoggedIn = false;
     public String webURL;
+    public String apiDomainName="http://192.168.1.135/";
 
     @Override
     protected void attachBaseContext(Context base) {
